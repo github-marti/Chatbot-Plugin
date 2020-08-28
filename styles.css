@@ -1,0 +1,104 @@
+:root {
+    --primary: #ff3d00;
+    --primary-dark: #d63200;
+    --secondary: #989898;
+}
+
+.container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    right: 10%;
+    height: 400px;
+    width: 350px;
+}
+
+.top-bar {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    height: 2em;
+    padding: 5px 10px;
+    border-radius: 3px 3px 0 0;
+}
+
+.chatbox {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column-reverse;
+    background: white;
+    height: 90%;
+    padding: 10px 15px;
+    overflow: auto;
+    border-left: 1px solid #aaaaaa;
+    border-right: 1px solid #aaaaaa;
+}
+
+.message-wrapper {
+    width: 100%;
+}
+
+.input-bar {
+    display: flex;
+    padding: 5px 10px;
+    background: #dddddd;
+    justify-content: center;
+    height: 10%;
+    border-left: 1px solid #aaaaaa;
+    border-right: 1px solid #aaaaaa;
+}
+
+.input {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    align-self: center;
+    padding: 5px 10px;
+    width: 100%;
+    margin-right: 2%;
+    background: #dddddd;
+    border: 0;
+    outline: none;
+}
+
+.submit-btn {
+    align-self: center;
+    width: 30%;
+    background: var(--primary);
+    color: white;
+    padding: 5px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.submit-btn:hover {
+    background: var(--primary-dark);
+}
+
+.user-bubble {
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px 10px 0 10px;
+    color: white;
+    align-self: end;
+    width: fit-content;
+    float: right;
+    max-width: 70%;
+    text-align: left;
+    background: var(--primary);
+}
+
+.bot-bubble {
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px 10px 10px 0;
+    color: #333333;
+    width: fit-content;
+    max-width: 70%;
+    text-align: left;
+    background: #dddddd;
+}
