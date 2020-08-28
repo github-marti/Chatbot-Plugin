@@ -1,14 +1,12 @@
 window.onload = function () {
   // module-level variables
   const BRAIN_URL = "https://webuyyourproblem.com/brain/";
+  const delay = 1000;
   let user,
     msg,
-    complete = false;
-  const theme = {
-    primary: "#ff3d00",
-    primaryDark: "#d63200",
-    secondary: "#989898",
-  };
+    started = false,
+    complete = false,
+    collapsed = true;
 
   // helper functions
   const addStylesheet = file => {
@@ -31,7 +29,35 @@ window.onload = function () {
     chatbox.insertBefore(wrapper, chatbox.firstChild);
   };
 
+  const showTypingIndicator = () => {
+    const typingIndicator = document.createElement("div");
+    typingIndicator.className = "typing-indicator";
+    for (let i = 0; i < 3; i++) {
+        typingIndicator.appendChild(document.createElement("span"));
+    };
+    chatbox.insertBefore(typingIndicator, chatbox.firstChild);
+  }
+
+  const hideTypingIndicator = () => {
+      const typingIndicator = document.querySelector(".typing-indicator");
+      typingIndicator.parentNode.removeChild(typingIndicator);
+  }
+
   // event functions
+  const expandChatbot = () => {
+      collapsed = false;
+      container.className += " expanded"
+      if (!started) {
+          startConvo();
+          started = true;
+      }
+  }
+
+  const collapseChatbot = () => {
+      collapsed = true;
+      container.className = "container";
+  }
+
   const startConvo = async () => {
     try {
       await fetch(BRAIN_URL + "/brain/intro/", {
@@ -50,7 +76,7 @@ window.onload = function () {
           msgs.forEach((m, i) => {
             setTimeout(function () {
               addMessage("bot", m);
-            }, i * 1000);
+            }, (i * delay) + delay);
           });
         });
     } catch (e) {
@@ -64,12 +90,13 @@ window.onload = function () {
   };
 
   const submit = async (e) => {
-    input.value = "";
     e.preventDefault();
+    input.value = "";
     if (!msg || complete) {
       return;
     }
     addMessage("user", msg);
+    setTimeout(showTypingIndicator, 300);
     try {
       await fetch(BRAIN_URL + "/brain/test/", {
         method: "POST",
@@ -84,17 +111,18 @@ window.onload = function () {
         .then((response) => response.json())
         .then((data) => {
           const msgs = data.output.output_messages;
+          user = data.output.user;
           if (
             data.output.output_messages[0] ===
             "Thanks for providing this information. We’ll do some research into properties that have sold nearby and get right back with you."
           ) {
             complete = true;
           }
-          user = data.output.user;
+          setTimeout(hideTypingIndicator, delay);
           msgs.forEach((m, i) => {
             setTimeout(function () {
               addMessage("bot", m);
-            }, i * 1000);
+            }, (i * delay) + delay);
           });
         });
     } catch (e) {
@@ -104,17 +132,24 @@ window.onload = function () {
   };
 
   // DOM element variables
+  const canvas = document.createElement("div");
+  const relativeWrapper = document.createElement("div");
   const container = document.createElement("div");
   const topBar = document.createElement("div");
+  const chatIcon = document.createElement("img");
   const chatbox = document.createElement("div");
   const inputBar = document.createElement("form");
   const input = document.createElement("input");
   const submitBtn = document.createElement("button");
 
   // add attributes
+  canvas.className = "canvas";
+  relativeWrapper.className = "relative-wrapper";
   container.className = "container";
   topBar.className = "top-bar";
-  topBar.innerText = "ALI Real Estate Chatbox";
+  topBar.innerText = "ALI Chatbot";
+  chatIcon.setAttribute("src", "chatbubbles.png");
+  chatIcon.className = "chat-icon";
   chatbox.className = "chatbox";
   inputBar.className = "input-bar";
   input.className = "input";
@@ -125,22 +160,29 @@ window.onload = function () {
   submitBtn.innerText = "SEND";
 
   // nest appropriate elements
+  canvas.appendChild(relativeWrapper);
+  relativeWrapper.appendChild(container);
   container.appendChild(topBar);
   container.appendChild(chatbox);
   container.appendChild(inputBar);
+  topBar.insertBefore(chatIcon, topBar.firstChild);
   inputBar.appendChild(input);
   inputBar.appendChild(submitBtn);
 
   // append to HTML
-  document.body.appendChild(container);
+  document.body.appendChild(canvas);
 
   // add event listeners
+  topBar.addEventListener("click", function() {
+      if (collapsed) {
+          expandChatbot();
+      } else {
+          collapseChatbot();
+      }
+  });
   submitBtn.addEventListener("click", submit);
   input.addEventListener("input", handleInput);
 
   // include CSS file
   addStylesheet("styles.css");
-
-  // start the conversation
-  startConvo();
 };
