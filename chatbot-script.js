@@ -19,19 +19,21 @@ window.onload = function () {
   }
 
   const addMessage = (speaker, msg) => {
+    const chatbox = document.querySelector(".ali--chatbox");
     const wrapper = document.createElement("div");
     const bubble = document.createElement("div");
-    const className = speaker === "user" ? "user-bubble" : "bot-bubble";
+    const className = speaker === "user" ? "ali--user-bubble" : "ali--bot-bubble";
     bubble.innerText = msg;
     bubble.className = className;
-    wrapper.className = "message-wrapper";
+    wrapper.className = "ali--message-wrapper";
+    chatbox.scrollTop = chatbox.scrollHeight;
     wrapper.appendChild(bubble);
     chatbox.insertBefore(wrapper, chatbox.firstChild);
   };
 
   const showTypingIndicator = () => {
     const typingIndicator = document.createElement("div");
-    typingIndicator.className = "typing-indicator";
+    typingIndicator.className = "ali--typing-indicator";
     for (let i = 0; i < 3; i++) {
         typingIndicator.appendChild(document.createElement("span"));
     };
@@ -39,14 +41,14 @@ window.onload = function () {
   }
 
   const hideTypingIndicator = () => {
-      const typingIndicator = document.querySelector(".typing-indicator");
+      const typingIndicator = document.querySelector(".ali--typing-indicator");
       typingIndicator.parentNode.removeChild(typingIndicator);
   }
 
   // event functions
   const expandChatbot = () => {
       collapsed = false;
-      container.className += " expanded"
+      container.className += " ali--expanded"
       if (!started) {
           startConvo();
           started = true;
@@ -55,7 +57,7 @@ window.onload = function () {
 
   const collapseChatbot = () => {
       collapsed = true;
-      container.className = "container";
+      container.className = "ali--container";
   }
 
   const startConvo = async () => {
@@ -96,7 +98,7 @@ window.onload = function () {
       return;
     }
     addMessage("user", msg);
-    setTimeout(showTypingIndicator, 300);
+    setTimeout(showTypingIndicator, delay);
     try {
       await fetch(BRAIN_URL + "/brain/test/", {
         method: "POST",
@@ -110,6 +112,7 @@ window.onload = function () {
       })
         .then((response) => response.json())
         .then((data) => {
+          const chatbox = document.querySelector(".ali--chatbox");
           const msgs = data.output.output_messages;
           user = data.output.user;
           if (
@@ -118,6 +121,7 @@ window.onload = function () {
           ) {
             complete = true;
           }
+          chatbox.scrollTop  = chatbox.scrollHeight;
           setTimeout(hideTypingIndicator, delay);
           msgs.forEach((m, i) => {
             setTimeout(function () {
@@ -132,8 +136,6 @@ window.onload = function () {
   };
 
   // DOM element variables
-  const canvas = document.createElement("div");
-  const relativeWrapper = document.createElement("div");
   const container = document.createElement("div");
   const topBar = document.createElement("div");
   const chatIcon = document.createElement("img");
@@ -143,25 +145,21 @@ window.onload = function () {
   const submitBtn = document.createElement("button");
 
   // add attributes
-  canvas.className = "canvas";
-  relativeWrapper.className = "relative-wrapper";
-  container.className = "container";
-  topBar.className = "top-bar";
+  container.className = "ali--container";
+  topBar.className = "ali--top-bar";
   topBar.innerText = "ALI Chatbot";
-  chatIcon.setAttribute("src", "chatbubbles.png");
-  chatIcon.className = "chat-icon";
-  chatbox.className = "chatbox";
-  inputBar.className = "input-bar";
-  input.className = "input";
+  chatIcon.setAttribute("src", "https://ali-chat-bot.s3-us-west-2.amazonaws.com/chatbubbles.png");
+  chatIcon.className = "ali--chat-icon";
+  chatbox.className = "ali--chatbox";
+  inputBar.className = "ali--input-bar";
+  input.className = "ali--input";
   input.type = "text";
   input.placeholder = "Talk to me!";
-  submitBtn.className = "submit-btn";
+  submitBtn.className = "ali--submit-btn";
   submitBtn.type = "submit";
   submitBtn.innerText = "SEND";
 
   // nest appropriate elements
-  canvas.appendChild(relativeWrapper);
-  relativeWrapper.appendChild(container);
   container.appendChild(topBar);
   container.appendChild(chatbox);
   container.appendChild(inputBar);
@@ -170,7 +168,7 @@ window.onload = function () {
   inputBar.appendChild(submitBtn);
 
   // append to HTML
-  document.body.appendChild(canvas);
+  document.body.appendChild(container);
 
   // add event listeners
   topBar.addEventListener("click", function() {

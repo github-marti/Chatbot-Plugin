@@ -1,139 +1,127 @@
 :root {
-    --primary: #ff3d00;
-    --primary-dark: #d63200;
-    --secondary: #989898;
-    --light-gray: #dddddd;
-    --dark-gray: #333333;
+    --ali-primary: #ff3d00;
+    --ali-primary-dark: #d63200;
+    --ali-secondary: #989898;
+    --ali-light-gray: #dddddd;
+    --ali-dark-gray: #333333;
 }
 
-.canvas {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+.ali--container {
+    font-size: 14px!important;
+    position: fixed!important;
+    display: flex!important;
+    flex-direction: column!important;
+    bottom: -357px!important;
+    left: 5%!important;
+    height: 400px!important;
+    width: 170px!important;
+    transition: bottom 0.4s, width 0.4s!important;
 }
 
-.relative-wrapper {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+.ali--expanded {
+    bottom: 0px!important;
+    width: 350px!important;
 }
 
-.container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    bottom: -350px;
-    right: 10%;
-    height: 400px;
-    width: 170px;
-    transition: bottom 0.4s, width 0.4s;
+.ali--top-bar {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif!important;
+    font-size: 1.2em!important;
+    display: flex!important;
+    align-items: center!important;
+    background: var(--ali-primary)!important;
+    color: white!important;
+    height: 50px!important;
+    padding: 5px 10px!important;
+    border-radius: 5px 5px 0 0!important;
+    cursor: pointer!important;
 }
 
-.expanded {
-    bottom: 0px;
-    width: 350px;
+.ali--chat-icon {
+    width: 40px!important;
+    padding-right: 5px!important;
 }
 
-.top-bar {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-    align-items: center;
-    background: var(--primary);
-    color: white;
-    height: 50px;
-    padding: 5px 10px;
-    border-radius: 5px 5px 0 0;
-    cursor: pointer;
+.ali--chatbox {
+    display: flex!important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif!important;
+    flex-direction: column-reverse!important;
+    background: white!important;
+    height: 90%!important;
+    padding: 10px 15px!important;
+    overflow: auto!important;
+    border-left: 1px solid var(--ali-secondary)!important;
+    border-right: 1px solid var(--ali-secondary)!important;
 }
 
-.chat-icon {
-    width: 40px;
-    padding-right: 5px;
+.ali--message-wrapper {
+    width: 100%!important;
 }
 
-.chatbox {
-    display: flex;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    flex-direction: column-reverse;
-    background: white;
-    height: 90%;
-    padding: 10px 15px;
-    overflow: auto;
-    border-left: 1px solid var(--secondary);
-    border-right: 1px solid var(--secondary);
+.ali--input-bar {
+    display: flex!important;
+    padding: 5px 10px!important;
+    background: #dddddd!important;
+    justify-content: center!important;
+    height: 15%!important;
+    border-left: 1px solid var(--ali-secondary)!important;
+    border-right: 1px solid var(--ali-secondary)!important;
 }
 
-.message-wrapper {
-    width: 100%;
+.ali--input {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif!important;
+    font-size: 1em!important;
+    align-self: center!important;
+    padding: 5px 10px!important;
+    width: 100%!important;
+    margin-right: 2%!important;
+    background: white!important;
+    border: 0!important;
+    border-radius: 5px;
+    outline: none!important;
 }
 
-.input-bar {
-    display: flex;
-    padding: 5px 10px;
-    background: #dddddd;
-    justify-content: center;
-    height: 10%;
-    border-left: 1px solid var(--secondary);
-    border-right: 1px solid var(--secondary);
+.ali--submit-btn {
+    align-self: center!important;
+    font-size: 1em!important;
+    width: 30%!important;
+    background: var(--ali-primary)!important;
+    color: white!important;
+    padding: 5px!important;
+    border: 0!important;
+    cursor: pointer!important;
+    border-radius: 3px!important;
 }
 
-.input {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    align-self: center;
-    padding: 5px 10px;
-    width: 100%;
-    margin-right: 2%;
-    background: var(--light-gray);
-    border: 0;
-    outline: none;
+.ali--submit-btn:hover {
+    background: var(--ali-primary-dark)!important;
 }
 
-.submit-btn {
-    align-self: center;
-    width: 30%;
-    background: var(--primary);
-    color: white;
-    padding: 5px;
-    border: 0;
-    cursor: pointer;
-    border-radius: 3px;
+.ali--user-bubble {
+    padding: 10px!important;
+    margin: 5px 0!important;
+    border-radius: 10px 10px 0 10px!important;
+    color: white!important;
+    align-self: end!important;
+    width: fit-content!important;
+    float: right!important;
+    max-width: 70%!important;
+    text-align: left!important;
+    background: var(--ali-primary)!important;
 }
 
-.submit-btn:hover {
-    background: var(--primary-dark);
+.ali--bot-bubble {
+    padding: 10px!important;
+    margin: 5px 0!important;
+    border-radius: 10px 10px 10px 0!important;
+    color: var(--ali-dark-gray)!important;
+    width: fit-content!important;
+    max-width: 70%!important;
+    text-align: left!important;
+    background: var(--ali-light-gray)!important;
 }
 
-.user-bubble {
-    font-size: 0.9em;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 10px 10px 0 10px;
-    color: white;
-    align-self: end;
-    width: fit-content;
-    float: right;
-    max-width: 70%;
-    text-align: left;
-    background: var(--primary);
-}
-
-.bot-bubble {
-    font-size: 0.9em;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 10px 10px 10px 0;
-    color: var(--dark-gray);
-    width: fit-content;
-    max-width: 70%;
-    text-align: left;
-    background: var(--light-gray);
-}
-
-.typing-indicator {
-    background-color: var(--light-gray);
+.ali--typing-indicator {
+    background-color: var(--ali-light-gray);
     width: auto;
     border-radius: 50px;
     padding: 15px;
@@ -141,28 +129,28 @@
     width: fit-content;
   }
 
-.typing-indicator span {
+.ali--typing-indicator span {
     height: 8px;
     width: 8px;
     float: left;
     margin: 0 1px;
-    background-color: var(--dark-gray);
+    background-color: var(--ali-dark-gray);
     display: block;
     border-radius: 50%;
     opacity: 0.4;
   }
 
-  .typing-indicator span:nth-of-type(1) {
+  .ali--typing-indicator span:nth-of-type(1) {
     -webkit-animation: 1s blink infinite 0.3333s;
             animation: 1s blink infinite 0.3333s;
   }
 
-  .typing-indicator span:nth-of-type(2) {
+  .ali--typing-indicator span:nth-of-type(2) {
     -webkit-animation: 1s blink infinite 0.6666s;
             animation: 1s blink infinite 0.6666s;
   }
 
-  .typing-indicator span:nth-of-type(3) {
+  .ali--typing-indicator span:nth-of-type(3) {
     -webkit-animation: 1s blink infinite 0.9999s;
             animation: 1s blink infinite 0.9999s;
   }
