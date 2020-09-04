@@ -1,6 +1,6 @@
 window.onload = function () {
   // module-level variables
-  const BRAIN_URL = "https://webuyyourproblem.com/brain/";
+  const BRAIN_URL = "https://webuyyourproblem.com/api/";
   const delay = 1000;
   let user,
     msg,
@@ -48,7 +48,8 @@ window.onload = function () {
   // event functions
   const expandChatbot = () => {
       collapsed = false;
-      container.className += " ali--expanded"
+      container.className += " ali--expanded";
+      topBar.className += " ali--still";
       if (!started) {
           startConvo();
           started = true;
@@ -58,6 +59,7 @@ window.onload = function () {
   const collapseChatbot = () => {
       collapsed = true;
       container.className = "ali--container";
+      topBar.className = "ali--top-bar";
   }
 
   const startConvo = async () => {
@@ -147,7 +149,7 @@ window.onload = function () {
   // add attributes
   container.className = "ali--container";
   topBar.className = "ali--top-bar";
-  topBar.innerText = "ALI Chatbot";
+  topBar.innerText = "Get My Fair Cash Offer!";
   chatIcon.setAttribute("src", "https://ali-chat-bot.s3-us-west-2.amazonaws.com/chatbubbles.png");
   chatIcon.className = "ali--chat-icon";
   chatbox.className = "ali--chatbox";
@@ -163,7 +165,7 @@ window.onload = function () {
   container.appendChild(topBar);
   container.appendChild(chatbox);
   container.appendChild(inputBar);
-  topBar.insertBefore(chatIcon, topBar.firstChild);
+  // topBar.insertBefore(chatIcon, topBar.firstChild);
   inputBar.appendChild(input);
   inputBar.appendChild(submitBtn);
 
@@ -183,4 +185,7 @@ window.onload = function () {
 
   // include CSS file
   addStylesheet("styles.css");
+
+  // expand bot after 2 seconds
+  setTimeout(expandChatbot, 2000);
 };
